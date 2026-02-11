@@ -1,0 +1,1608 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Trial of Thought - Cognitive Challenge System</title>
+  
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+
+  <style>
+    [cite_start]/* --- ORIGINAL CSS FROM SOURCE [cite: 1-289] --- */
+    body { box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Segoe UI', 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0e27;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      width: 100%; height: 100%; position: relative;
+      overflow-y: auto; overflow-x: hidden;
+    }
+
+    /* Gaming Console Frame */
+    .console-frame {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 9999;
+    }
+
+    .console-bezel {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      border: 8px solid #1a1d2e;
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 0 0 100px rgba(0, 255, 127, 0.1);
+      border-radius: 8px;
+    }
+
+    .console-bezel::before {
+      content: ''; position: absolute;
+      top: -20px; left: -20px; right: -20px; bottom: -20px;
+      background: linear-gradient(135deg, rgba(0, 255, 127, 0.1) 0%, transparent 50%, rgba(0, 191, 255, 0.1) 100%);
+      border-radius: 8px; animation: consolePulse 4s ease-in-out infinite;
+    }
+
+    @keyframes consolePulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+
+    .screen-glare {
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+      animation: glareMove 8s ease-in-out infinite;
+    }
+
+    @keyframes glareMove { 0%, 100% { left: -100%; } 50% { left: 100%; } }
+
+    /* Gaming Header */
+    .gaming-header {
+      position: sticky; top: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(180deg, rgba(10, 14, 39, 0.98) 0%, rgba(10, 14, 39, 0.95) 100%);
+      border-bottom: 2px solid rgba(0, 255, 127, 0.3);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; z-index: 1000; backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .gaming-logo { display: flex; align-items: center; gap: 1rem; }
+
+    .xbox-logo {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #00ff7f, #00bfff);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; font-weight: 900; color: #0a0e27;
+      box-shadow: 0 0 20px rgba(0, 255, 127, 0.5); animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.05); }
+    }
+
+    .gaming-title { display: flex; flex-direction: column; }
+    .gaming-title h1 {
+      font-size: 1.5rem; font-weight: 700; margin: 0;
+      background: linear-gradient(90deg, #00ff7f, #00bfff, #ff69b4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .gaming-title p {
+      font-size: 0.75rem; margin: 0; color: #7dd3fc;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    .player-status {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(0, 255, 127, 0.1); padding: 0.5rem 1.5rem;
+      border-radius: 25px; border: 2px solid rgba(0, 255, 127, 0.3);
+    }
+
+    .player-avatar {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #ff69b4, #ba68c8);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .status-info { display: flex; flex-direction: column; align-items: flex-start; }
+    .status-info .status-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+    .status-info .status-value { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #00ff7f; }
+
+    .online-dot {
+      width: 8px; height: 8px; background: #00ff7f; border-radius: 50%;
+      animation: onlinePulse 2s ease-in-out infinite; box-shadow: 0 0 10px #00ff7f;
+    }
+
+    @keyframes onlinePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    /* Animated Background */
+    .background-layer {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; overflow: hidden;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 30%, #dbeafe 60%, #f0f9ff 100%);
+    }
+
+    .data-stream {
+      position: absolute; width: 3px; height: 120px;
+      background: linear-gradient(180deg, transparent, #7dd3fc, #00bfff, transparent);
+      animation: streamfall linear infinite; opacity: 0.4; border-radius: 10px;
+    }
+
+    @keyframes streamfall {
+      0% { transform: translateY(-120px); opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(calc(100% + 120px)); opacity: 0; }
+    }
+
+    .node-connection {
+      position: absolute; width: 80px; height: 80px;
+      border: 3px solid #7dd3fc; border-radius: 12px;
+      animation: pulse 3s ease-in-out infinite; opacity: 0.15;
+      box-shadow: 0 0 20px rgba(125, 211, 252, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.15; }
+      50% { transform: scale(1.3) rotate(90deg); opacity: 0.25; }
+    }
+
+    /* Main Content */
+    .content-wrapper { position: relative; z-index: 1; min-height: 100%; padding: 2rem; padding-top: 1rem; }
+
+    /* Welcome Screen */
+    .welcome-screen {
+      max-width: 600px; margin: 0 auto; padding: 3rem 2rem;
+      background: rgba(255, 255, 255, 0.97); border: 3px solid #7dd3fc;
+      border-radius: 20px; backdrop-filter: blur(20px);
+      box-shadow: 0 0 60px rgba(125, 211, 252, 0.3), 0 0 100px rgba(0, 191, 255, 0.2);
+      margin-top: 2%;
+    }
+
+    .logo-section { text-align: center; margin-bottom: 2rem; }
+    .ai-logo { font-size: 4rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .main-title {
+      font-size: 2rem; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.5rem; letter-spacing: 1px;
+    }
+
+    .main-caption { color: #6366f1; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .subtitle { color: #7c3aed; font-size: 0.95rem; margin-bottom: 2rem; font-style: italic; }
+
+    .input-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; color: #7c3aed; font-weight: 600; font-size: 0.95rem; }
+    input[type="text"] {
+      width: 100%; padding: 1rem; background: rgba(124, 58, 237, 0.05);
+      border: 2px solid #7c3aed; border-radius: 10px;
+      color: #2d1b4e; font-size: 1rem; transition: all 0.3s; font-family: inherit;
+    }
+    input[type="text"]:focus {
+      outline: none; border-color: #6366f1;
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); background: rgba(124, 58, 237, 0.08);
+    }
+    input[type="text"]::placeholder { color: #a78bfa; }
+
+    .guidelines-toggle {
+      background: rgba(124, 58, 237, 0.1); border: 2px solid #7c3aed;
+      border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .guidelines-toggle:hover { background: rgba(124, 58, 237, 0.15); box-shadow: 0 0 20px rgba(124, 58, 237, 0.2); }
+    .guidelines-header { display: flex; justify-content: space-between; align-items: center; color: #7c3aed; font-weight: 600; }
+    .guidelines-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; margin-top: 0; }
+    .guidelines-content.open { max-height: 600px; margin-top: 1rem; }
+    .guidelines-content ul { list-style: none; padding-left: 0; }
+    .guidelines-content li { padding: 0.5rem 0; color: #2d1b4e; line-height: 1.6; }
+    .guidelines-content li:before { content: "▸ "; color: #7c3aed; font-weight: bold; margin-right: 0.5rem; }
+
+    .primary-button {
+      width: 100%; padding: 1.2rem; background: linear-gradient(135deg, #7c3aed, #6366f1);
+      border: none; border-radius: 12px; color: white;
+      font-size: 1.1rem; font-weight: 700; cursor: pointer;
+      transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3); font-family: inherit;
+    }
+    .primary-button:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124, 58, 237, 0.5); }
+    .primary-button:active { transform: translateY(0); }
+    .primary-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* Quiz Screen */
+    .quiz-screen { max-width: 900px; margin: 0 auto; display: none; }
+    .quiz-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+
+    .score-display {
+      background: rgba(124, 58, 237, 0.15); padding: 1rem 1.5rem;
+      border-radius: 12px; border: 2px solid #7c3aed;
+      font-size: 1.3rem; font-weight: 700; color: #7c3aed;
+    }
+
+    .timer-display {
+      background: rgba(34, 197, 94, 0.15); padding: 1rem 1.5rem;
+      border-radius: 12px; border: 2px solid #22c55e;
+      font-size: 1.3rem; font-weight: 700; color: #16a34a; transition: all 0.3s;
+    }
+    .timer-display.amber { background: rgba(251, 191, 36, 0.15); border-color: #fbbf24; color: #d97706; }
+    .timer-display.red {
+      background: rgba(239, 68, 68, 0.15); border-color: #ef4444; color: #dc2626;
+      animation: timerPulse 1s ease-in-out infinite;
+    }
+    @keyframes timerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    .time-alert {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(239, 68, 68, 0.95); padding: 2rem 3rem;
+      border-radius: 15px; border: 3px solid #ef4444;
+      box-shadow: 0 0 60px rgba(239, 68, 68, 0.6); z-index: 1000;
+      animation: alertSlide 0.4s ease-out; max-width: 90%; text-align: center; color: white;
+    }
+    @keyframes alertSlide { from { transform: translate(-50%, -60%); opacity: 0; } to { transform: translate(-50%, -50%); opacity: 1; } }
+
+    .lifelines-container {
+      display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;
+      padding-top: 1.5rem; border-top: 2px dashed rgba(124, 58, 237, 0.2); flex-wrap: wrap;
+    }
+
+    .lifeline-button {
+      padding: 0.8rem 1.2rem; background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #7c3aed; border-radius: 10px; color: #7c3aed;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+      font-family: inherit; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .lifeline-button:hover:not(:disabled) {
+      background: rgba(124, 58, 237, 0.15); transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(124, 58, 237, 0.3);
+    }
+    .lifeline-button:disabled {
+      opacity: 0.4; cursor: not-allowed; background: rgba(200, 200, 200, 0.3);
+      border-color: #9ca3af; color: #9ca3af;
+    }
+    .lifeline-cost {
+      background: rgba(239, 68, 68, 0.15); color: #dc2626;
+      padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.75rem; font-weight: 700;
+    }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.9); border: 2px solid #7c3aed;
+      border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem;
+      backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15);
+    }
+    .question-number { color: #7c3aed; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; }
+    .question-text { font-size: 1.4rem; margin-bottom: 2rem; color: #2d1b4e; font-weight: 600; }
+
+    .character-display {
+      text-align: center; margin: 2rem 0; padding: 2rem;
+      background: rgba(125, 211, 252, 0.1); border-radius: 15px; border: 2px solid #7dd3fc;
+    }
+    .character-icon {
+      font-size: 5rem; animation: characterFloat 2s ease-in-out infinite;
+      display: inline-block; text-align: center;
+    }
+    .character-icon img {
+      width: 200px; height: 200px; object-fit: cover;
+      border-radius: 15px; border: 3px solid #7dd3fc;
+      box-shadow: 0 8px 30px rgba(125, 211, 252, 0.4);
+      display: block; margin: 0 auto; /* Ensures centering */
+    }
+    .character-icon.emoji { font-size: 5rem; }
+    @keyframes characterFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+
+    .character-name { font-size: 1.5rem; font-weight: 700; margin-top: 1rem; color: #2d1b4e; }
+
+    /* --- FIXED GRID LAYOUT (2x2) --- */
+    .answers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Force 2 columns */
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .answer-button {
+      padding: 1.5rem; background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #7c3aed; border-radius: 12px;
+      color: #2d1b4e; font-size: 1rem; font-weight: 600; cursor: pointer;
+      transition: all 0.3s; font-family: inherit;
+    }
+    .answer-button:hover:not(:disabled) {
+      background: rgba(124, 58, 237, 0.2); border-color: #6366f1;
+      transform: translateY(-3px); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+    }
+    .answer-button:disabled { cursor: not-allowed; opacity: 0.6; }
+    .answer-button.correct { background: rgba(34, 197, 94, 0.2); border-color: #22c55e; animation: correctPulse 0.6s ease-out; }
+    .answer-button.incorrect { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; animation: shake 0.5s ease-out; }
+    .answer-button.hidden { opacity: 0.2; pointer-events: none; text-decoration: line-through; }
+
+    @keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+
+    /* Feedback Modal */
+    .feedback-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7); display: none;
+      justify-content: center; align-items: center; z-index: 100;
+      animation: fadeIn 0.3s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .feedback-content {
+      background: rgba(255, 255, 255, 0.98); border: 3px solid #7c3aed;
+      border-radius: 20px; padding: 3rem; max-width: 500px; width: 90%;
+      text-align: center; position: relative; animation: slideUp 0.4s ease-out;
+      box-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
+    }
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .feedback-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .feedback-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .feedback-title.correct { color: #22c55e; }
+    .feedback-title.incorrect { color: #ef4444; }
+    .feedback-explanation { color: #2d1b4e; line-height: 1.6; margin-bottom: 1.5rem; font-size: 1.05rem; }
+
+    .stars-container { display: flex; justify-content: center; gap: 0.5rem; margin: 1.5rem 0; }
+    .star { font-size: 2.5rem; opacity: 0; animation: starPop 0.5s ease-out forwards; }
+    .star:nth-child(1) { animation-delay: 0.1s; }
+    .star:nth-child(2) { animation-delay: 0.2s; }
+    .star:nth-child(3) { animation-delay: 0.3s; }
+    .star:nth-child(4) { animation-delay: 0.4s; }
+    .star:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes starPop {
+      0% { transform: scale(0) rotate(0deg); opacity: 0; }
+      50% { transform: scale(1.2) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); opacity: 1; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed; width: 10px; height: 10px; background: #7c3aed;
+      position: absolute; animation: confettiFall 3s linear forwards;
+    }
+    @keyframes confettiFall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+    /* Results Screen */
+    .results-screen { max-width: 800px; margin: 0 auto; display: none; }
+    .results-card {
+      background: rgba(255, 255, 255, 0.9); border: 2px solid #7c3aed;
+      border-radius: 20px; padding: 3rem; text-align: center;
+      backdrop-filter: blur(20px); margin-bottom: 2rem;
+      box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15);
+    }
+    .results-icon { font-size: 5rem; margin-bottom: 1rem; }
+    .results-title {
+      font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .results-score { font-size: 3rem; font-weight: 700; color: #7c3aed; margin: 1rem 0; }
+    .results-time { color: #6366f1; font-size: 1.2rem; margin-bottom: 2rem; }
+
+    .motivational-quote {
+      background: rgba(124, 58, 237, 0.1); border-left: 4px solid #7c3aed;
+      padding: 1.5rem; margin: 2rem 0; font-style: italic; color: #2d1b4e;
+      line-height: 1.8; animation: fadeInUp 0.6s ease-out;
+    }
+    @keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .action-buttons button { flex: 1; min-width: 200px; }
+
+    .secondary-button {
+      padding: 1rem 2rem; background: rgba(99, 102, 241, 0.15);
+      border: 2px solid #6366f1; border-radius: 12px;
+      color: #6366f1; font-size: 1rem; font-weight: 600; cursor: pointer;
+      transition: all 0.3s; font-family: inherit;
+    }
+    .secondary-button:hover {
+      background: rgba(99, 102, 241, 0.25); transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Certificate */
+    .certificate-container {
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1d3e 100%);
+      color: #ffffff; padding: 3rem; border-radius: 20px;
+      margin: 2rem 0; position: relative;
+      box-shadow: 0 0 80px rgba(125, 211, 252, 0.5), 0 0 120px rgba(0, 255, 127, 0.3);
+      aspect-ratio: 16/9; display: flex; flex-direction: column;
+      justify-content: space-between; overflow: hidden;
+    }
+    .certificate-container::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(125, 211, 252, 0.03) 10px, rgba(125, 211, 252, 0.03) 20px),
+                  repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(125, 211, 252, 0.03) 10px, rgba(125, 211, 252, 0.03) 20px);
+      pointer-events: none; z-index: 0;
+    }
+    .certificate-border {
+      position: absolute; top: 1.5rem; left: 1.5rem; right: 1.5rem; bottom: 1.5rem;
+      border: 4px solid; border-image: linear-gradient(135deg, #00ff7f, #7dd3fc, #00bfff, #00ff7f) 1;
+      border-radius: 15px; pointer-events: none;
+      box-shadow: inset 0 0 30px rgba(125, 211, 252, 0.2); z-index: 0;
+    }
+    .certificate-border::before, .certificate-border::after {
+      content: '⬢'; position: absolute; font-size: 2rem; color: #00ff7f;
+      text-shadow: 0 0 20px #00ff7f; animation: rotateCube 4s linear infinite;
+    }
+    .certificate-border::before { top: -1rem; left: -1rem; }
+    .certificate-border::after { bottom: -1rem; right: -1rem; animation-delay: 2s; }
+    @keyframes rotateCube { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } }
+
+    .certificate-header { text-align: center; position: relative; z-index: 1; }
+    .certificate-seal {
+      position: absolute; top: 2rem; right: 2rem; width: 90px; height: 90px;
+      background: linear-gradient(135deg, #00ff7f, #00bfff);
+      border-radius: 50%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; color: #0a0e27;
+      font-size: 0.7rem; font-weight: 900;
+      box-shadow: 0 0 40px rgba(0, 255, 127, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 2; animation: sealPulse 3s ease-in-out infinite;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+    @keyframes sealPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 40px rgba(0, 255, 127, 0.6); }
+      50% { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 60px rgba(0, 255, 127, 0.8); }
+    }
+    .certificate-stars { font-size: 1.2rem; margin-bottom: 0.2rem; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); }
+
+    .certificate-title {
+      font-family: 'Rajdhani', 'Segoe UI', sans-serif; font-size: 2.8rem; font-weight: 900;
+      background: linear-gradient(135deg, #00ff7f, #7dd3fc, #00bfff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 3px;
+      text-shadow: 0 0 30px rgba(125, 211, 252, 0.5); filter: drop-shadow(0 0 20px rgba(125, 211, 252, 0.4));
+    }
+    .certificate-subtitle { font-size: 1rem; color: #7dd3fc; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+    .certificate-body { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+    .certificate-text { font-size: 1.1rem; color: #94a3b8; margin-bottom: 1rem; line-height: 1.6; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .certificate-name {
+      font-size: 2.5rem; font-weight: 900;
+      background: linear-gradient(135deg, #ffffff, #7dd3fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin: 1rem 0; padding: 1rem 2rem; border: 3px solid #00ff7f;
+      border-radius: 10px; display: inline-block; min-width: 300px;
+      box-shadow: 0 0 30px rgba(0, 255, 127, 0.3), inset 0 0 20px rgba(125, 211, 252, 0.1);
+      position: relative; overflow: hidden;
+    }
+    .certificate-name::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: nameShine 3s ease-in-out infinite;
+    }
+    @keyframes nameShine { 0%, 100% { left: -100%; } 50% { left: 100%; } }
+
+    .certificate-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-top: 2rem; font-size: 0.95rem; }
+    .certificate-detail {
+      text-align: center; background: rgba(125, 211, 252, 0.1); padding: 1rem;
+      border-radius: 10px; border: 2px solid rgba(125, 211, 252, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .certificate-detail-label { color: #00ff7f; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; }
+    .certificate-detail-value { color: #ffffff; font-weight: 700; font-size: 1.2rem; }
+
+    .certificate-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 2rem; position: relative; z-index: 1; }
+    .certificate-footer-left { display: flex; flex-direction: column; gap: 0.8rem; }
+    .certificate-date, .certificate-id {
+      font-size: 0.85rem; color: #00ff7f; font-weight: 700; letter-spacing: 1px;
+      padding: 0.75rem 1.25rem; background: rgba(0, 255, 127, 0.1);
+      border-radius: 8px; border: 2px solid rgba(0, 255, 127, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 255, 127, 0.2);
+    }
+    .certificate-signature { text-align: right; }
+    .signature-line {
+      border-top: 2px solid #00ff7f; padding-top: 0.5rem; margin-top: 1rem;
+      min-width: 200px; font-size: 0.9rem; color: #94a3b8; font-weight: 600;
+    }
+
+    .roblox-watermark {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
+      font-size: 8rem; opacity: 0.03; pointer-events: none; z-index: 0;
+      font-weight: 900; color: #7dd3fc; text-shadow: 0 0 50px rgba(125, 211, 252, 0.2); letter-spacing: 0.5rem;
+    }
+
+    .roblox-cube-decoration {
+      position: absolute; width: 40px; height: 40px;
+      background: linear-gradient(135deg, rgba(125, 211, 252, 0.2), rgba(0, 255, 127, 0.2));
+      border: 2px solid rgba(125, 211, 252, 0.4); border-radius: 5px;
+      transform: rotate(45deg); animation: floatCube 4s ease-in-out infinite; z-index: 0;
+    }
+    @keyframes floatCube { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(225deg) translateY(-10px); } }
+    .roblox-cube-1 { top: 20%; left: 5%; animation-delay: 0s; }
+    .roblox-cube-2 { bottom: 15%; right: 8%; animation-delay: 1s; }
+    .roblox-cube-3 { top: 60%; left: 10%; width: 30px; height: 30px; animation-delay: 2s; }
+
+    /* Leaderboard */
+    .leaderboard-card {
+      background: rgba(255, 255, 255, 0.9); border: 2px solid #7c3aed;
+      border-radius: 20px; padding: 2rem; backdrop-filter: blur(20px);
+      margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15);
+    }
+    .leaderboard-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #7c3aed; text-align: center; }
+    .leaderboard-table { width: 100%; border-collapse: collapse; }
+    .leaderboard-table th {
+      background: rgba(124, 58, 237, 0.15); padding: 1rem; text-align: left;
+      color: #7c3aed; font-weight: 600; border-bottom: 2px solid #7c3aed;
+    }
+    .leaderboard-table td { padding: 1rem; border-bottom: 1px solid rgba(124, 58, 237, 0.15); color: #2d1b4e; }
+    .leaderboard-table tr:hover { background: rgba(124, 58, 237, 0.08); }
+    .rank-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 35px; height: 35px; border-radius: 50%; font-weight: 700; font-size: 1.2rem;
+    }
+    .rank-1 { background: linear-gradient(135deg, #ffd700, #ffed4e); color: #1a1a1a; box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4); }
+    .rank-2 { background: linear-gradient(135deg, #c0c0c0, #e8e8e8); color: #1a1a1a; box-shadow: 0 2px 10px rgba(192, 192, 192, 0.4); }
+    .rank-3 { background: linear-gradient(135deg, #cd7f32, #daa520); color: #1a1a1a; box-shadow: 0 2px 10px rgba(205, 127, 50, 0.4); }
+    .rank-other { background: rgba(124, 58, 237, 0.2); color: #7c3aed; font-size: 0.9rem; }
+    .loading-spinner { text-align: center; padding: 2rem; color: #7c3aed; font-size: 1.2rem; }
+
+    /* Certificate Modal */
+    .certificate-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9); display: none; justify-content: center;
+      align-items: center; z-index: 10000; animation: fadeIn 0.3s ease-out;
+      padding: 2rem; overflow-y: auto; backdrop-filter: blur(10px);
+    }
+    .certificate-modal-content {
+      position: relative; max-width: 950px; width: 100%;
+      background: transparent; border-radius: 25px; padding: 0;
+    }
+    .modal-close-btn {
+      position: absolute; top: -1rem; right: -1rem; width: 50px; height: 50px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
+      color: white; font-size: 2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s; z-index: 10001;
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 4px 15px rgba(0, 0, 0, 0.5);
+      font-weight: 700; line-height: 1;
+    }
+    .modal-close-btn:hover {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      transform: scale(1.15) rotate(90deg);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.8), 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+    .leaderboard-table tbody tr { cursor: pointer; transition: all 0.3s; }
+    .leaderboard-table tbody tr:hover { background: rgba(125, 211, 252, 0.15); transform: translateX(5px); }
+
+    @media (max-width: 768px) {
+      .content-wrapper { padding: 1rem; }
+      .gaming-header { padding: 0 1rem; height: 70px; }
+      .gaming-title h1 { font-size: 1.2rem; }
+      .player-status { padding: 0.5rem 1rem; }
+      .welcome-screen { padding: 2rem 1.5rem; margin-top: 10%; }
+      .main-title { font-size: 1.5rem; }
+      .level-selection-screen .welcome-screen { max-width: 95%; }
+      .level-selection-screen > div > div[style*="grid"] { grid-template-columns: 1fr !important; }
+      .quiz-header { flex-direction: column; align-items: stretch; }
+      .lifelines-container { flex-direction: column; }
+      .question-card { padding: 1.5rem; }
+      .answers-grid { grid-template-columns: 1fr; }
+      .character-icon img { width: 150px; height: 150px; }
+      .certificate-container { padding: 1.5rem; font-size: 0.8rem; }
+      .certificate-title { font-size: 1.5rem; }
+      .certificate-name { font-size: 1.3rem; min-width: 200px; }
+      .leaderboard-table { font-size: 0.9rem; }
+      .leaderboard-table th, .leaderboard-table td { padding: 0.5rem; }
+      .action-buttons { flex-direction: column; }
+      .action-buttons button { width: 100%; }
+    }
+  </style>
+ </head>
+ <body>
+  <div class="background-layer" id="backgroundLayer"></div>
+  <div class="console-frame">
+   <div class="console-bezel"></div>
+   <div class="screen-glare"></div>
+  </div>
+  
+  <div class="gaming-header">
+   <div class="gaming-logo">
+    <div class="xbox-logo">X</div>
+    <div class="gaming-title">
+     <h1>Guess the Reel</h1>
+     <p>Main Dashboard</p>
+    </div>
+   </div>
+   <div class="player-status">
+    <div class="player-avatar">🎮</div>
+    <div class="status-info"><span class="status-label">Status</span> <span class="status-value"> <span class="online-dot"></span> ONLINE </span>
+    </div>
+   </div>
+  </div>
+
+  <div class="app-container">
+   <div class="content-wrapper">
+    <div class="welcome-screen" id="welcomeScreen">
+     <div class="logo-section">
+      <div class="ai-logo">🤖</div>
+      <h1 class="main-title" id="appTitle">THE TRIAL OF THOUGHT</h1>
+      <p class="main-caption" id="appCaption">Cognitive Challenge System</p>
+      <p class="subtitle" id="appTagline">Master Moderation Through Progressive Learning</p>
+     </div>
+     <form id="welcomeForm">
+      <div class="input-group"><label for="usernameInput">Enter Your Name</label> <input type="text" id="usernameInput" placeholder="Your name here..." required autocomplete="off">
+      </div>
+      <div class="guidelines-toggle" id="guidelinesToggle">
+       <div class="guidelines-header"><span>📋 Course Guidelines</span> <span id="guidelinesArrow">▼</span>
+       </div>
+       <div class="guidelines-content" id="guidelinesContent">
+        <ul>
+         <li>Answer 10 questions about famous TV series characters</li>
+         <li>Each question has 60 seconds to answer</li>
+         <li>Correct answer: +10 points</li>
+         <li>Wrong or timeout: 0 points</li>
+         <li>Pass threshold: 70 points (7 correct answers)</li>
+         <li>Pass to receive your completion certificate</li>
+         <li>All questions auto-advance after selection</li>
+         <li><strong>Lifelines (10 points each):</strong></li>
+         <li style="margin-left: 1.5rem;">🧠 Smart Hint - Get expert guidance</li>
+         <li style="margin-left: 1.5rem;">🎯 Filter Out - Remove two wrong options</li>
+         <li style="margin-left: 1.5rem;">👨‍ Ask Expert - Professional insight</li>
+        </ul>
+       </div>
+      </div><button type="submit" class="primary-button"> Launch the Challenge </button>
+     </form>
+    </div>
+    
+    <div class="level-selection-screen" id="levelSelectionScreen" style="display: none;">
+     <div class="welcome-screen" style="max-width: 700px;">
+      <div class="logo-section">
+       <div class="ai-logo">🎮</div>
+       <h1 class="main-title">SELECT YOUR LEVEL</h1>
+       <p class="subtitle">Progress through both levels to earn your certificate</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
+       <div class="level-card" id="level1Card" style="background: rgba(124, 58, 237, 0.1); border: 3px solid #7c3aed; border-radius: 15px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.3s;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+        <h3 style="color: #7c3aed; font-size: 1.5rem; margin-bottom: 0.5rem;">LEVEL 1</h3>
+        <p style="color: #6366f1; font-weight: 600; margin-bottom: 1rem;">FOUNDATIONS</p>
+        <p style="color: #2d1b4e; font-size: 0.9rem; margin-bottom: 1rem;">10 Questions | 60s Each</p>
+        <div id="level1Status" style="background: rgba(34, 197, 94, 0.2); border: 2px solid #22c55e; color: #16a34a; padding: 0.5rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+         🔓 UNLOCKED
+        </div>
+        <div id="level1Score" style="display: none; margin-top: 1rem; color: #7c3aed; font-weight: 700;"></div>
+       </div>
+       <div class="level-card" id="level2Card" style="background: rgba(99, 102, 241, 0.1); border: 3px solid #9ca3af; border-radius: 15px; padding: 2rem; text-align: center; cursor: not-allowed; transition: all 0.3s; opacity: 0.6;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
+        <h3 style="color: #6366f1; font-size: 1.5rem; margin-bottom: 0.5rem;">LEVEL 2</h3>
+        <p style="color: #3b82f6; font-weight: 600; margin-bottom: 1rem;">COMPLICATED</p>
+        <p style="color: #2d1b4e; font-size: 0.9rem; margin-bottom: 1rem;">10 Questions | 60s Each</p>
+        <div id="level2Status" style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; color: #dc2626; padding: 0.5rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+         🔒 LOCKED<br><span style="font-size: 0.8rem;">Score 70+ in Level 1 to unlock</span>
+        </div>
+        <div id="level2Score" style="display: none; margin-top: 1rem; color: #6366f1; font-weight: 700;"></div>
+       </div>
+      </div><button class="secondary-button" id="backToWelcomeBtn" style="margin-top: 2rem; width: 100%;"> ← Back to Welcome </button>
+     </div>
+    </div>
+
+    <div class="quiz-screen" id="quizScreen">
+     <div class="quiz-header">
+      <div class="score-display">Score: <span id="scoreValue">0</span></div>
+      <div class="timer-display" id="timerDisplay">⏱️ <span id="timerValue">60</span>s</div>
+     </div>
+     <div class="question-card">
+      <div class="question-number" id="questionNumber">Question 1 of 10</div>
+      <h2 class="question-text" id="questionPrompt">Find the series to which the below character belongs</h2>
+      <div class="character-display">
+       <div class="character-icon" id="characterIcon">👤</div>
+       <div class="character-name" id="characterName">Character Name</div>
+      </div>
+      <div id="lifelineHintBox" style="display:none; background: rgba(99, 102, 241, 0.1); border: 2px solid #6366f1; border-radius: 10px; padding: 1rem; margin: 1rem 0; color: #2d1b4e;"><strong>💡 Hint:</strong> <span id="lifelineHintText"></span>
+      </div>
+      <div class="answers-grid" id="answersGrid"></div>
+      <div class="lifelines-container"><button class="lifeline-button" id="hintBtn"> 🧠 Smart Hint <span class="lifeline-cost">-10pts</span> </button> <button class="lifeline-button" id="filterBtn"> 🎯 Filter Out <span class="lifeline-cost">-10pts</span> </button> <button class="lifeline-button" id="expertBtn"> 👨‍💼 Ask Expert <span class="lifeline-cost">-10pts</span> </button>
+      </div>
+     </div>
+    </div>
+
+    <div class="results-screen" id="resultsScreen">
+     <div class="results-card">
+      <div class="results-icon" id="resultsIcon">🏆</div>
+      <h2 class="results-title" id="resultsTitle">Challenge Complete!</h2>
+      <div class="results-score" id="finalScore">0/100</div>
+      <div class="results-time" id="finalTime">Time Taken: 0m 0s</div>
+      <div id="motivationalQuoteContainer"></div>
+      <div class="action-buttons"><button class="primary-button" id="viewCertificateBtn" style="display:none;"> View Certificate </button> <button class="secondary-button" id="viewLeaderboardBtn"> View Leaderboard </button> <button class="secondary-button" id="retryBtn"> Relaunch Challenge </button>
+      </div>
+     </div>
+     
+     <div id="certificateSection" style="display:none;">
+      <div class="certificate-container" id="certificateContainer">
+       <div class="roblox-watermark">ROBLOX</div>
+       <div class="roblox-cube-decoration roblox-cube-1"></div>
+       <div class="roblox-cube-decoration roblox-cube-2"></div>
+       <div class="roblox-cube-decoration roblox-cube-3"></div>
+       <div class="certificate-border"></div>
+       <div class="certificate-seal">
+        <div class="certificate-stars">⭐⭐⭐⭐⭐</div>
+        <div>CERTIFIED</div>
+       </div>
+       <div class="certificate-header">
+        <h1 class="certificate-title" id="certTitle">Certificate of Completion</h1>
+        <p class="certificate-subtitle">The Trial of Thought - Cognitive Challenge System</p>
+       </div>
+       <div class="certificate-body">
+        <p class="certificate-text">This is to certify that</p>
+        <div class="certificate-name" id="certName">User Name</div>
+        <p class="certificate-text">has successfully completed the TV Series Knowledge Assessment with distinction</p>
+        <div class="certificate-details">
+         <div class="certificate-detail">
+          <div class="certificate-detail-label">Score</div>
+          <div class="certificate-detail-value" id="certScore">0/100</div>
+         </div>
+         <div class="certificate-detail">
+          <div class="certificate-detail-label">Time Taken</div>
+          <div class="certificate-detail-value" id="certTime">0m 0s</div>
+         </div>
+         <div class="certificate-detail">
+          <div class="certificate-detail-label">Date</div>
+          <div class="certificate-detail-value" id="certDate">01/01/2024</div>
+         </div>
+        </div>
+       </div>
+       <div class="certificate-footer">
+        <div class="certificate-footer-left">
+         <div class="certificate-date" id="certDateFooter">Date: 01/01/2024</div>
+         <div class="certificate-id" id="certId">Certificate ID: XXXX-XXXX-XXXX</div>
+        </div>
+        <div class="certificate-signature">
+         <div class="signature-line" id="certEvaluator">Training Evaluator - AI Core System</div>
+        </div>
+       </div>
+      </div>
+      <div class="action-buttons"><button class="primary-button" id="downloadCertBtn"> 📥 Download Certificate </button>
+      </div>
+     </div>
+     
+     <div class="leaderboard-card" id="leaderboardSection" style="display:none;">
+      <h3 class="leaderboard-title">🏆 Global Leaderboard</h3>
+      <div id="leaderboardContent">
+       <div class="loading-spinner">Loading leaderboard...</div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="feedback-modal" id="feedbackModal">
+   <div class="feedback-content">
+    <div class="feedback-icon" id="feedbackIcon">✨</div>
+    <h2 class="feedback-title" id="feedbackTitle">Feedback</h2>
+    <p class="feedback-explanation" id="feedbackText">Explanation goes here</p>
+    <div class="stars-container" id="starsContainer" style="display:none;"><span class="star">⭐</span> <span class="star">⭐</span> <span class="star">⭐</span> <span class="star">⭐</span> <span class="star">⭐</span>
+    </div>
+   </div>
+  </div>
+
+  <div class="certificate-modal" id="certificateModal">
+   <div class="certificate-modal-content"><button class="modal-close-btn" id="modalCloseBtn">×</button>
+    <div class="certificate-container" id="modalCertificateContainer">
+     <div class="roblox-watermark">ROBLOX</div>
+     <div class="roblox-cube-decoration roblox-cube-1"></div>
+     <div class="roblox-cube-decoration roblox-cube-2"></div>
+     <div class="roblox-cube-decoration roblox-cube-3"></div>
+     <div class="certificate-border"></div>
+     <div class="certificate-seal">
+      <div class="certificate-stars">⭐⭐⭐⭐⭐</div>
+      <div>CERTIFIED</div>
+     </div>
+     <div class="certificate-header">
+      <h1 class="certificate-title" id="modalCertTitle">Certificate of Completion</h1>
+      <p class="certificate-subtitle">The Trial of Thought - Cognitive Challenge System</p>
+     </div>
+     <div class="certificate-body">
+      <p class="certificate-text">This is to certify that</p>
+      <div class="certificate-name" id="modalCertName">User Name</div>
+      <p class="certificate-text">has successfully completed the TV Series Knowledge Assessment with distinction</p>
+      <div class="certificate-details">
+       <div class="certificate-detail">
+        <div class="certificate-detail-label">Score</div>
+        <div class="certificate-detail-value" id="modalCertScore">0/100</div>
+       </div>
+       <div class="certificate-detail">
+        <div class="certificate-detail-label">Time Taken</div>
+        <div class="certificate-detail-value" id="modalCertTime">0m 0s</div>
+       </div>
+       <div class="certificate-detail">
+        <div class="certificate-detail-label">Rank</div>
+        <div class="certificate-detail-value" id="modalCertRank">#1</div>
+       </div>
+       <div class="certificate-detail">
+        <div class="certificate-detail-label">Date</div>
+        <div class="certificate-detail-value" id="modalCertDate">01/01/2024</div>
+       </div>
+      </div>
+     </div>
+     <div class="certificate-footer">
+      <div class="certificate-footer-left">
+       <div class="certificate-date" id="modalCertDateFooter">Date: 01/01/2024</div>
+       <div class="certificate-id" id="modalCertId">Certificate ID: XXXX-XXXX-XXXX</div>
+      </div>
+      <div class="certificate-signature">
+       <div class="signature-line" id="modalCertEvaluator">Training Evaluator - AI Core System</div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <script>
+    // Quiz Data with character images - LEVEL 1 (Foundations)
+    const level1Questions = [
+      {
+        character: "Eleven", icon: "🎲", imageUrl: "https://s2.r29static.com/bin/entry/75e/x,80/2214031/image.jpg",
+        series: "Stranger Things", explanation: "Mike Wheeler is one of the main characters and the leader of the friend group in Stranger Things.",
+        hint: "This series is set in the 1980s and features supernatural elements in a small town.", expertHint: "The character is the Dungeon Master who leads his friends in their adventures.", otherOptions: ["Breaking Bad", "The Walking Dead", "Dark"]
+      },
+      {
+        character: "Walter White", icon: "🧪", imageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*5ScZtTDEIgKHaoxa6lvSdg.jpeg",
+        series: "Breaking Bad", explanation: "Walter White is a chemistry teacher who becomes a methamphetamine manufacturer.",
+        hint: "This critically acclaimed series follows a teacher's transformation into a criminal.", expertHint: "The protagonist is a chemistry teacher who adopts the alias 'Heisenberg'.", otherOptions: ["Better Call Saul", "The Boys", "Peaky Blinders"]
+      },
+      {
+        character: "Jon Snow", icon: "⚔️", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw_abhqNa2iTKwDx7pjo3PIFyBn8wYp8PfeQ&s",
+        series: "Game of Thrones", explanation: "Jon Snow is a key character in Game of Thrones, known for his honor and leadership.",
+        hint: "This fantasy epic is based on books and features dragons and the Iron Throne.", expertHint: "This character is known for the phrase 'You know nothing' and serves at the Wall.", otherOptions: ["House of the Dragon", "Vikings", "The Witcher"]
+      },
+      {
+        character: "Rick Grimes", icon: "🧟", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx53CDvtrf-K27m5zhR4lOhbAdIwU6tvNOMQ&s",
+        series: "The Walking Dead", explanation: "Rick Grimes is the sheriff who leads survivors in the zombie apocalypse.",
+        hint: "This post-apocalyptic series features zombies and survival groups.", expertHint: "The main character is a former sheriff's deputy who wakes up from a coma.", otherOptions: ["The Last of Us", "Stranger Things", "Squid Game"]
+      },
+      {
+        character: "The Professor", icon: "🎭", imageUrl: "https://i.pinimg.com/originals/fe/ed/1a/feed1ab70ae6d60484bb901c9e91590e.jpg",
+        series: "Money Heist", explanation: "The Professor is the mastermind behind elaborate heists in Money Heist (La Casa de Papel).",
+        hint: "This Spanish series involves red jumpsuits and city-named code names.", expertHint: "The mastermind orchestrates a heist at the Royal Mint of Spain.", otherOptions: ["Prison Break", "Peaky Blinders", "Breaking Bad"]
+      },
+      {
+        character: "Jonas Kahnwald", icon: "🌀", imageUrl: "https://i.pinimg.com/564x/f7/b3/30/f7b330d68ef07d85718eb430d1e234d1.jpg",
+        series: "Dark", explanation: "Jonas is the central character navigating time travel paradoxes in Dark.",
+        hint: "This German series involves time travel and interconnected families across generations.", expertHint: "The protagonist discovers a cave that connects different time periods in a small German town.", otherOptions: ["Stranger Things", "Westworld", "Loki"]
+      },
+      {
+        character: "Geralt of Rivia", icon: "🐺", imageUrl: "https://i0.wp.com/redanianintelligence.com/wp-content/uploads/2023/09/geralt-game.jpg?fit=1084%2C610&ssl=1",
+        series: "The Witcher", explanation: "Geralt is a monster hunter with supernatural abilities in The Witcher.",
+        hint: "This fantasy series is based on Polish novels and features a silver-haired monster hunter.", expertHint: "The protagonist is a mutant hunter who famously says 'Hmm' and fights monsters for coin.", otherOptions: ["Game of Thrones", "Vikings", "The Mandalorian"]
+      },
+      {
+        character: "Thomas Shelby", icon: "🎩", imageUrl: "https://miro.medium.com/1*2heEpIi8ZQT0hjUlhv3jJw.jpeg",
+        series: "Peaky Blinders", explanation: "Thomas Shelby leads the Peaky Blinders gang in post-WWI Birmingham.",
+        hint: "This British crime drama is set in 1920s Birmingham and features a family gang.", expertHint: "The protagonist leads a gang known for sewing razor blades into their flat caps.", otherOptions: ["Money Heist", "Breaking Bad", "Sherlock"]
+      },
+      {
+        character: "Cho Sang-woo", icon: "🔺", imageUrl: "https://cdn.costumewall.com/wp-content/uploads/2024/09/cho-sang-woo-costume.jpg",
+        series: "Squid Game", explanation: "Sang-woo is the childhood friend of Gi-hun who participates in the deadly survival games.",
+        hint: "This Korean series features desperate contestants playing children's games for survival.", expertHint: "Player 218 is an intelligent businessman from SNU who makes difficult moral choices.", otherOptions: ["The Walking Dead", "Money Heist", "Prison Break"]
+      },
+      {
+        character: "Sherlock Holmes", icon: "🔍", imageUrl: "https://www.timeshighereducation.com/sites/default/files/Pictures/web/j/z/p/benedict-cumberbatch-as-sherlock-holmes.jpg",
+        series: "Sherlock", explanation: "Sherlock Holmes is the brilliant detective solving complex cases in modern London.",
+        hint: "This BBC series is a modern adaptation of the famous detective stories set in present-day London.", expertHint: "The consulting detective lives at 221B Baker Street and works with Dr. Watson.", otherOptions: ["Peaky Blinders", "Dark", "Breaking Bad"]
+      }
+    ];
+
+    // LEVEL 2 (Complicated) - New Series
+    const level2Questions = [
+      {
+        character: "John Kramer (Jigsaw)", icon: "🎭", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNppbg3Ozi2Rr_ZFibf_HbgSCmv5Nhs9GmuQ&s",
+        series: "Saw", explanation: "John Kramer, also known as Jigsaw, is the mastermind behind elaborate death traps designed to test victims' will to live.",
+        hint: "This horror franchise features deadly games and the iconic phrase 'I want to play a game.'", expertHint: "The antagonist creates elaborate traps to teach his victims the value of life through extreme tests.", otherOptions: ["The Purge", "Escape Room", "Final Destination"]
+      },
+      {
+        character: "Kang Sae-byeok", icon: "🗡️", imageUrl: "https://hips.hearstapps.com/hmg-prod/images/squid-game-1632309278.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=980:*",
+        series: "Squid Game", explanation: "Player 067 is a North Korean defector who enters the games to reunite with her family.",
+        hint: "Korean drama where 456 contestants compete in lethal versions of childhood games.", expertHint: "The skilled pickpocket with a stoic demeanor forms an alliance with Gi-hun during the games.", otherOptions: ["Alice in Borderland", "Battle Royale", "The Platform"]
+      },
+      {
+        character: "Dustin Henderson", icon: "🎩", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxdQh6XG5o2Qz5iADhHcAIfNTyKZuAy3By4A&s",
+        series: "Stranger Things", explanation: "Dustin Henderson is the lovable, intelligent member of the friend group known for his curiosity and scientific knowledge.",
+        hint: "Set in 1980s Indiana, this show features supernatural forces and government experiments.", expertHint: "The character with distinctive teeth befriends a creature from another dimension and loves science.", otherOptions: ["The Umbrella Academy", "Dark", "Locke & Key"]
+      },
+      {
+        character: "Kazuma Kiryu", icon: "🐉", imageUrl: "https://assetsio.gnwcdn.com/Like-A-Dragon-Gaiden-The-Man-Who-Erased-His-Name.jpg?width=1200&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
+        series: "Like a Dragon", explanation: "Kazuma Kiryu is the legendary yakuza known as the Dragon of Dojima in this Japanese crime drama series.",
+        hint: "This series is based on a popular video game franchise about Japanese organized crime.", expertHint: "The protagonist is a former yakuza chairman with a dragon tattoo on his back.", otherOptions: ["Tokyo Vice", "Giri/Haji", "Sanctuary"]
+      },
+      {
+        character: "J. Daniel Atlas", icon: "🎩", imageUrl: "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/J-Daniel-Atlas.Now-You-See-Me.webp",
+        series: "Now You See Me", explanation: "Daniel Atlas leads the Four Horsemen, a group of illusionists who pull off heists during their performances.",
+        hint: "This thriller film series follows magicians who use illusions to rob banks and expose corrupt businessmen.", expertHint: "The lead magician is part of a secret society called The Eye.", otherOptions: ["The Prestige", "The Illusionist", "Ocean's Eleven"]
+      },
+      {
+        character: "Bella Swan", icon: "🦇", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKT_JM0mUOyqT9_uSBc2XOkP8dFhre6PpcYQ&s",
+        series: "The Twilight Saga", explanation: "Bella Swan is the human who falls in love with vampire Edward Cullen in this supernatural romance series.",
+        hint: "This vampire romance series is set in Forks, Washington and features werewolves and vampires.", expertHint: "The protagonist must choose between a vampire and a werewolf in a love triangle.", otherOptions: ["The Vampire Diaries", "True Blood", "Buffy the Vampire Slayer"]
+      },
+      {
+        character: "Katniss Everdeen", icon: "🏹", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBKb84eKpLDe84BFfxZjJx4nLf7xp6KhiTSA&s",
+        series: "The Hunger Games", explanation: "Katniss Everdeen is the Mockingjay who leads a rebellion against the Capitol in this dystopian series.",
+        hint: "Set in Panem, this dystopian series features an annual televised battle to the death.", expertHint: "The Girl on Fire volunteers as tribute from District 12 and becomes a symbol of rebellion.", otherOptions: ["Divergent", "The Maze Runner", "Battle Royale"]
+      },
+      {
+        character: "Jack Quaid", icon: "🧪", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIUQEhh6tOCtNyGItsL72r3qCGXSJaL-xlww&s",
+        series: "Marvel", explanation: "This is a test character designed to validate content filtering and moderation systems.",
+        hint: "This is a quality assurance series designed for testing system capabilities.", expertHint: "A meta-character used for validation and testing purposes in content systems.", otherOptions: ["Debug Mode", "QA Series", "Test Suite"]
+      },
+      {
+        character: "Yoichi Isagi", icon: "⚽", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWPBCw9WiDemfIicUprwBy8Rin6Q13wyt4fQ&s",
+        series: "Blue Lock", explanation: "Yoichi Isagi is a striker competing in the Blue Lock program to become Japan's greatest egoist footballer.",
+        hint: "This soccer anime features 300 strikers competing in an intense training facility to find Japan's best.", expertHint: "The protagonist develops his 'spatial awareness' ability while training to become the ultimate striker.", otherOptions: ["Haikyuu!!", "Ao Ashi", "Captain Tsubasa"]
+      },
+      {
+        character: "Rimuru Tempest", icon: "💧", imageUrl: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2021/08/Rimuru-Tempest-Slime.jpg",
+        series: "That Time I Got Reincarnated as a Slime", explanation: "Rimuru Tempest is a former human reincarnated as a powerful slime who builds a monster nation.",
+        hint: "This isekai anime features a protagonist who dies and is reborn as a unique slime with special abilities.", expertHint: "The slime protagonist has the skill 'Predator' and names monsters to make them stronger.", otherOptions: ["Overlord", "Re:Zero", "Konosuba"]
+      }
+    ];
+
+    // Game State
+    let currentUsername = '';
+    let currentQuestion = 0;
+    let currentLevel = 1;
+    let level1Score = 0;
+    let level2Score = 0;
+    let score = 0;
+    let timer = 60;
+    let timerInterval = null;
+    let startTime = null;
+    let level1Time = 0;
+    let level2Time = 0;
+    let totalTimeTaken = 0;
+    let alertShown = false;
+    let allRecords = [];
+    let quizData = [];
+    let lifelinesUsed = { hint: false, filter: false, expert: false };
+    let level1Completed = false;
+    let level1PassedScore = 0;
+
+    // Configuration
+    const defaultConfig = {
+      app_title: "THE TRIAL OF THOUGHT",
+      app_caption: "Cognitive Challenge System",
+      app_tagline: "Master Moderation Through Progressive Learning",
+      question_prompt: "Find the series to which the below character belongs",
+      pass_threshold: "70",
+      certificate_title: "Certificate of Completion",
+      evaluator_name: "AI Core System",
+      background_color: "#f8f7ff",
+      primary_color: "#7c3aed",
+      secondary_color: "#6366f1",
+      text_color: "#2d1b4e",
+      accent_color: "#3b82f6"
+    };
+
+    // Initialize background animation
+    function initBackground() {
+      const bg = document.getElementById('backgroundLayer');
+      for (let i = 0; i < 15; i++) {
+        const stream = document.createElement('div');
+        stream.className = 'data-stream';
+        stream.style.left = `${Math.random() * 100}%`;
+        stream.style.animationDuration = `${3 + Math.random() * 4}s`;
+        stream.style.animationDelay = `${Math.random() * 3}s`;
+        bg.appendChild(stream);
+      }
+      for (let i = 0; i < 8; i++) {
+        const node = document.createElement('div');
+        node.className = 'node-connection';
+        node.style.left = `${Math.random() * 90}%`;
+        node.style.top = `${Math.random() * 90}%`;
+        node.style.animationDelay = `${Math.random() * 3}s`;
+        bg.appendChild(node);
+      }
+    }
+
+    // Guidelines toggle
+    document.getElementById('guidelinesToggle').addEventListener('click', () => {
+      const content = document.getElementById('guidelinesContent');
+      const arrow = document.getElementById('guidelinesArrow');
+      content.classList.toggle('open');
+      arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+    });
+
+    // Welcome form submission
+    document.getElementById('welcomeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      currentUsername = document.getElementById('usernameInput').value.trim();
+      if (currentUsername) {
+        showLevelSelection();
+      }
+    });
+
+    // Show level selection screen
+    function showLevelSelection() {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('levelSelectionScreen').style.display = 'block';
+      updateLevelCards();
+    }
+
+    // Update level cards based on completion status
+    function updateLevelCards() {
+      const level1Card = document.getElementById('level1Card');
+      const level2Card = document.getElementById('level2Card');
+      const level1Status = document.getElementById('level1Status');
+      const level2Status = document.getElementById('level2Status');
+      const level1ScoreDiv = document.getElementById('level1Score');
+      const level2ScoreDiv = document.getElementById('level2Score');
+
+      // Level 1 - Always unlocked
+      level1Card.style.cursor = 'pointer';
+      level1Card.style.opacity = '1';
+      level1Card.onclick = () => startQuiz(1);
+
+      if (level1Completed) {
+        level1Status.innerHTML = `✅ COMPLETED`;
+        level1Status.style.background = 'rgba(34, 197, 94, 0.2)';
+        level1Status.style.borderColor = '#22c55e';
+        level1Status.style.color = '#16a34a';
+        level1ScoreDiv.style.display = 'block';
+        level1ScoreDiv.textContent = `Score: ${level1PassedScore}/100`;
+      }
+
+      // Level 2 - Unlocked only if Level 1 passed
+      if (level1Completed && level1PassedScore >= 70) {
+        level2Card.style.cursor = 'pointer';
+        level2Card.style.opacity = '1';
+        level2Card.style.borderColor = '#6366f1';
+        level2Status.innerHTML = '🔓 UNLOCKED';
+        level2Status.style.background = 'rgba(34, 197, 94, 0.2)';
+        level2Status.style.borderColor = '#22c55e';
+        level2Status.style.color = '#16a34a';
+        level2Card.onclick = () => startQuiz(2);
+      } else {
+        level2Card.style.cursor = 'not-allowed';
+        level2Card.style.opacity = '0.6';
+        level2Card.style.borderColor = '#9ca3af';
+        level2Card.onclick = null;
+      }
+    }
+
+    // Back to welcome button
+    document.getElementById('backToWelcomeBtn').addEventListener('click', () => {
+      document.getElementById('levelSelectionScreen').style.display = 'none';
+      document.getElementById('welcomeScreen').style.display = 'block';
+      document.getElementById('usernameInput').value = '';
+      level1Completed = false;
+      level1PassedScore = 0;
+    });
+
+    // Start quiz
+    function startQuiz(level) {
+      document.getElementById('levelSelectionScreen').style.display = 'none';
+      document.getElementById('quizScreen').style.display = 'block';
+      currentQuestion = 0;
+      currentLevel = level;
+      
+      if (level === 1) {
+        level1Score = 0;
+        score = 0;
+        quizData = [...level1Questions].sort(() => Math.random() - 0.5);
+      } else {
+        level2Score = 0;
+        score = level1PassedScore;
+        quizData = [...level2Questions].sort(() => Math.random() - 0.5);
+      }
+      
+      lifelinesUsed = { hint: false, filter: false, expert: false };
+      startTime = Date.now();
+      updateScore();
+      loadQuestion();
+    }
+
+    // Lifeline handlers
+    document.getElementById('hintBtn').addEventListener('click', () => {
+      if (score >= 10 && !lifelinesUsed.hint) {
+        score -= 10;
+        updateScore();
+        lifelinesUsed.hint = true;
+        document.getElementById('hintBtn').disabled = true;
+        
+        const question = quizData[currentQuestion];
+        document.getElementById('lifelineHintBox').style.display = 'block';
+        document.getElementById('lifelineHintText').textContent = question.hint;
+      }
+    });
+
+    document.getElementById('filterBtn').addEventListener('click', () => {
+      if (score >= 10 && !lifelinesUsed.filter) {
+        score -= 10;
+        updateScore();
+        lifelinesUsed.filter = true;
+        document.getElementById('filterBtn').disabled = true;
+        const buttons = Array.from(document.querySelectorAll('.answer-button'));
+        const question = quizData[currentQuestion];
+        const wrongButtons = buttons.filter(btn => btn.textContent !== question.series);
+        const toHide = wrongButtons.sort(() => Math.random() - 0.5).slice(0, 2);
+        toHide.forEach(btn => btn.classList.add('hidden'));
+      }
+    });
+
+    document.getElementById('expertBtn').addEventListener('click', () => {
+      if (score >= 10 && !lifelinesUsed.expert) {
+        score -= 10;
+        updateScore();
+        lifelinesUsed.expert = true;
+        document.getElementById('expertBtn').disabled = true;
+        const question = quizData[currentQuestion];
+        document.getElementById('lifelineHintBox').style.display = 'block';
+        document.getElementById('lifelineHintText').textContent = `👨‍💼 Expert: ${question.expertHint}`;
+      }
+    });
+
+    // Load question
+    function loadQuestion() {
+      if (currentQuestion >= quizData.length) {
+        if (currentLevel === 1) {
+          endLevel1();
+        } else {
+          endQuiz();
+        }
+        return;
+      }
+
+      const question = quizData[currentQuestion];
+      const levelText = currentLevel === 1 ? 'FOUNDATIONS' : 'COMPLICATED';
+      document.getElementById('questionNumber').textContent = `LEVEL ${currentLevel} (${levelText}) - Question ${currentQuestion + 1} of ${quizData.length}`;
+      
+      const characterIcon = document.getElementById('characterIcon');
+      if (question.imageUrl) {
+        const img = document.createElement('img');
+        img.src = question.imageUrl;
+        img.alt = question.character;
+        img.className = 'character-icon';
+        img.onerror = function() {
+          this.onerror = null;
+          const emojiDiv = document.createElement('div');
+          emojiDiv.className = 'character-icon emoji';
+          emojiDiv.textContent = question.icon;
+          this.parentNode.replaceChild(emojiDiv, this);
+        };
+        characterIcon.innerHTML = '';
+        characterIcon.appendChild(img);
+      } else {
+        characterIcon.innerHTML = `<div class="character-icon emoji">${question.icon}</div>`;
+      }
+      
+      document.getElementById('characterName').textContent = question.character;
+      
+      document.getElementById('lifelineHintBox').style.display = 'none';
+      document.getElementById('lifelineHintText').textContent = '';
+      
+      document.getElementById('hintBtn').disabled = lifelinesUsed.hint || score < 10;
+      document.getElementById('filterBtn').disabled = lifelinesUsed.filter || score < 10;
+      document.getElementById('expertBtn').disabled = lifelinesUsed.expert || score < 10;
+      
+      const options = [question.series, ...question.otherOptions].sort(() => Math.random() - 0.5);
+      const answersGrid = document.getElementById('answersGrid');
+      answersGrid.innerHTML = '';
+
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'answer-button';
+        button.textContent = option;
+        button.addEventListener('click', () => selectAnswer(option, button));
+        answersGrid.appendChild(button);
+      });
+
+      timer = 60;
+      alertShown = false;
+      updateTimer();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // Update timer
+    function updateTimer() {
+      timer--;
+      document.getElementById('timerValue').textContent = timer;
+
+      const timerDisplay = document.getElementById('timerDisplay');
+      timerDisplay.className = 'timer-display';
+      if (timer <= 30 && timer > 15) {
+        timerDisplay.classList.add('amber');
+      } else if (timer <= 15) {
+        timerDisplay.classList.add('red');
+      }
+
+      if (timer === 30 && !alertShown) {
+        showTimeAlert();
+        alertShown = true;
+      }
+
+      if (timer <= 0) {
+        clearInterval(timerInterval);
+        selectAnswer(null, null);
+      }
+    }
+
+    function showTimeAlert() {
+      const alert = document.createElement('div');
+      alert.className = 'time-alert';
+      alert.innerHTML = '<strong>⏰ Running out of time</strong><br>Take control before the clock runs out.';
+      document.body.appendChild(alert);
+      setTimeout(() => {
+        alert.remove();
+      }, 3000);
+    }
+
+    function selectAnswer(selectedAnswer, button) {
+      clearInterval(timerInterval);
+      const question = quizData[currentQuestion];
+      const isCorrect = selectedAnswer === question.series;
+      const isTimeout = selectedAnswer === null;
+      
+      const buttons = document.querySelectorAll('.answer-button');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      if (button) {
+        button.classList.add(isCorrect ? 'correct' : 'incorrect');
+      }
+
+      if (!isCorrect) {
+        buttons.forEach(btn => {
+          if (btn.textContent === question.series) {
+            btn.classList.add('correct');
+          }
+        });
+      }
+
+      if (isCorrect) {
+        score += 10;
+        updateScore();
+      }
+
+      setTimeout(() => {
+        showFeedback(isCorrect, isTimeout, question, selectedAnswer);
+      }, 800);
+    }
+
+    function updateScore() {
+      document.getElementById('scoreValue').textContent = score;
+      document.getElementById('hintBtn').disabled = lifelinesUsed.hint || score < 10;
+      document.getElementById('filterBtn').disabled = lifelinesUsed.filter || score < 10;
+      document.getElementById('expertBtn').disabled = lifelinesUsed.expert || score < 10;
+    }
+
+    // Show feedback
+    function showFeedback(isCorrect, isTimeout, question, selectedAnswer) {
+      const modal = document.getElementById('feedbackModal');
+      const icon = document.getElementById('feedbackIcon');
+      const title = document.getElementById('feedbackTitle');
+      const text = document.getElementById('feedbackText');
+      const starsContainer = document.getElementById('starsContainer');
+      
+      if (isCorrect) {
+        icon.textContent = '🎉';
+        title.textContent = 'Congratulations!';
+        title.className = 'feedback-title correct';
+        text.textContent = question.explanation;
+        starsContainer.style.display = 'flex';
+        createConfetti();
+      } else {
+        icon.textContent = isTimeout ? '⏰' : '💭';
+        title.textContent = isTimeout ? 'Time\'s Up!' : 'Not Quite';
+        title.className = 'feedback-title incorrect';
+        text.textContent = `Correct answer: ${question.series}. ${question.explanation}`;
+        starsContainer.style.display = 'none';
+      }
+
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        currentQuestion++;
+        loadQuestion();
+      }, 4000);
+    }
+
+    // Create confetti
+    function createConfetti() {
+      const colors = ['#7c3aed', '#6366f1', '#a78bfa', '#c4b5fd', '#fbbf24'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.top = '-10px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    function endLevel1() {
+      clearInterval(timerInterval);
+      level1Score = score;
+      level1Time = Math.floor((Date.now() - startTime) / 1000);
+      level1Completed = true;
+      level1PassedScore = level1Score;
+      const passedLevel1 = level1Score >= 70;
+      
+      document.getElementById('quizScreen').style.display = 'none';
+      
+      if (passedLevel1) {
+        const modal = document.getElementById('feedbackModal');
+        const icon = document.getElementById('feedbackIcon');
+        const title = document.getElementById('feedbackTitle');
+        const text = document.getElementById('feedbackText');
+        const starsContainer = document.getElementById('starsContainer');
+
+        icon.textContent = '🎉';
+        title.textContent = 'Level 1 Complete!';
+        title.className = 'feedback-title correct';
+        text.innerHTML = `<strong>Excellent work, ${currentUsername}!</strong><br>You scored ${level1Score}/100 in the Foundations level.<br><br>🔓 <strong>Level 2 is now unlocked!</strong><br>Return to level selection to continue your journey.`;
+        starsContainer.style.display = 'flex';
+        createConfetti();
+
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          modal.style.display = 'none';
+          document.getElementById('levelSelectionScreen').style.display = 'block';
+          updateLevelCards();
+        }, 5000);
+      } else {
+        const modal = document.getElementById('feedbackModal');
+        const icon = document.getElementById('feedbackIcon');
+        const title = document.getElementById('feedbackTitle');
+        const text = document.getElementById('feedbackText');
+        const starsContainer = document.getElementById('starsContainer');
+
+        icon.textContent = '💪';
+        title.textContent = 'Level 1 Incomplete';
+        title.className = 'feedback-title incorrect';
+        text.innerHTML = `You scored ${level1Score}/100.<br><br>You need at least 70/100 to unlock Level 2.<br><br>💡 <strong>Keep practicing!</strong> You can retry Level 1 anytime.`;
+        starsContainer.style.display = 'none';
+
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          modal.style.display = 'none';
+          document.getElementById('levelSelectionScreen').style.display = 'block';
+          updateLevelCards();
+        }, 5000);
+      }
+    }
+
+    async function endQuiz() {
+      clearInterval(timerInterval);
+      level2Score = score - level1Score;
+      level2Time = Math.floor((Date.now() - startTime) / 1000);
+      totalTimeTaken = level1Time + level2Time;
+      
+      const finalScore = Math.round((level1Score + level2Score) / 2);
+      const passed = finalScore >= parseInt(defaultConfig.pass_threshold);
+
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('resultsScreen').style.display = 'block';
+
+      document.getElementById('resultsIcon').textContent = passed ? '🏆' : '💪';
+      document.getElementById('resultsTitle').textContent = passed ? 'Challenge Complete!' : 'Keep Going!';
+      document.getElementById('finalScore').textContent = `${finalScore}/100`;
+      document.getElementById('finalTime').textContent = `Time Taken: ${Math.floor(totalTimeTaken / 60)}m ${totalTimeTaken % 60}s`;
+      
+      const quoteContainer = document.getElementById('motivationalQuoteContainer');
+      if (!passed) {
+        quoteContainer.innerHTML = `
+          <div class="motivational-quote">
+            <p>"Success is not final, failure is not fatal: it is the courage to continue that counts."</p>
+            <p>— Keep learning and try again!</p>
+          </div>
+        `;
+      } else {
+        quoteContainer.innerHTML = `
+          <div class="motivational-quote" style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e;">
+            <p><strong>📊 Performance Breakdown:</strong></p>
+            <p>Level 1 (Foundations): ${level1Score}/100</p>
+            <p>Level 2 (Complicated): ${level2Score}/100</p>
+            <p>Average Score: ${finalScore}/100</p>
+          </div>
+        `;
+      }
+
+      const certBtn = document.getElementById('viewCertificateBtn');
+      if (passed) {
+        certBtn.style.display = 'block';
+        certBtn.addEventListener('click', () => {
+          document.getElementById('certificateSection').style.display = 'block';
+          generateCertificate(finalScore);
+          setTimeout(() => {
+            document.getElementById('certificateContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        }, { once: true });
+      } else {
+        certBtn.style.display = 'none';
+      }
+
+      // Save to leaderboard
+      saveToLeaderboard(passed, finalScore);
+    }
+
+    function generateCertificate(finalScore) {
+      const certId = `TOT-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
+      const date = new Date();
+      const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+
+      document.getElementById('certName').textContent = currentUsername;
+      document.getElementById('certScore').textContent = `${finalScore}/100`;
+      document.getElementById('certTime').textContent = `${Math.floor(totalTimeTaken / 60)}m ${totalTimeTaken % 60}s`;
+      document.getElementById('certDate').textContent = formattedDate;
+      document.getElementById('certDateFooter').textContent = `Date: ${formattedDate}`;
+      document.getElementById('certId').textContent = `Certificate ID: ${certId}`;
+      createConfetti();
+    }
+
+    // --- FIXED: CERTIFICATE DOWNLOAD ---
+    document.getElementById('downloadCertBtn').addEventListener('click', function() {
+      const element = document.getElementById('certificateContainer');
+      const btn = this;
+      
+      // Ensure element is visible
+      element.style.display = 'flex';
+      
+      btn.innerText = "Generating Image...";
+      btn.disabled = true;
+
+      html2canvas(element, {
+          backgroundColor: null,
+          scale: 2
+      }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = `Certificate_${currentUsername.replace(/\s+/g, '_')}.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+
+          btn.innerText = "📥 Download Certificate";
+          btn.disabled = false;
+
+          const message = document.createElement('div');
+          message.className = 'time-alert';
+          message.style.background = 'rgba(0, 255, 127, 0.95)';
+          message.style.border = '3px solid #00ff7f';
+          message.innerHTML = '<strong>✅ Download Started!</strong><br>Your certificate has been saved.';
+          document.body.appendChild(message);
+          setTimeout(() => message.remove(), 4000);
+      });
+    });
+
+    // --- FIXED: LEADERBOARD LOADING ---
+    function loadLeaderboard() {
+        const stored = localStorage.getItem('tot_leaderboard');
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveToLeaderboard(passed, finalScore) {
+      const certId = `TOT-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
+      const date = new Date();
+      const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+
+      const newRecord = {
+        username: currentUsername,
+        level1Score: level1Score,
+        level2Score: currentLevel === 2 ? level2Score : 0,
+        finalScore: finalScore,
+        timeTaken: `${Math.floor(totalTimeTaken / 60)}m ${totalTimeTaken % 60}s`,
+        passed: passed,
+        completedAt: formattedDate,
+        certificateId: passed ? certId : '',
+        completedLevels: currentLevel
+      };
+
+      allRecords = loadLeaderboard();
+      allRecords.push(newRecord);
+
+      allRecords.sort((a, b) => {
+          if (b.finalScore !== a.finalScore) return b.finalScore - a.finalScore;
+          const parseTime = (t) => {
+              const parts = t.match(/(\d+)m\s*(\d+)s/);
+              return parts ? (parseInt(parts[1]) * 60 + parseInt(parts[2])) : 9999;
+          };
+          return parseTime(a.timeTaken) - parseTime(b.timeTaken);
+      });
+
+      localStorage.setItem('tot_leaderboard', JSON.stringify(allRecords));
+      
+      // Update the UI immediately if it's visible
+      if(document.getElementById('leaderboardSection').style.display === 'block') {
+          renderLeaderboard();
+      }
+    }
+
+    function renderLeaderboard() {
+      allRecords = loadLeaderboard();
+      const content = document.getElementById('leaderboardContent');
+      if (allRecords.length === 0) {
+        content.innerHTML = '<div class="loading-spinner">No records yet. Be the first!</div>';
+        return;
+      }
+
+      const tableHTML = `
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th><th>Name</th><th>Final Score</th>
+              <th>L1 Score</th><th>L2 Score</th><th>Time</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allRecords.map((record, index) => {
+              const rankIcon = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `🎖️`;
+              const rankDisplay = index < 3 ? rankIcon : `${rankIcon} #${index + 1}`;
+              return `
+                <tr onclick="showCertificateModal(${index})">
+                  <td><span class="rank-badge ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : 'rank-other'}">${rankDisplay}</span></td>
+                  <td>${record.username}</td>
+                  <td><strong>${record.finalScore}/100</strong></td>
+                  <td>${record.level1Score}/100</td>
+                  <td>${record.level2Score}/100</td>
+                  <td>${record.timeTaken}</td>
+                  <td>${record.passed ? '✅ Passed' : '❌ Failed'}</td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+      content.innerHTML = tableHTML;
+    }
+
+    function showCertificateModal(index) {
+      allRecords = loadLeaderboard();
+      const record = allRecords[index];
+      if (!record.passed) return;
+
+      const modal = document.getElementById('certificateModal');
+      document.getElementById('modalCertName').textContent = record.username;
+      document.getElementById('modalCertScore').textContent = `${record.finalScore}/100`;
+      document.getElementById('modalCertTime').textContent = record.timeTaken;
+      document.getElementById('modalCertRank').textContent = `#${index + 1}`;
+      document.getElementById('modalCertDate').textContent = record.completedAt;
+      document.getElementById('modalCertDateFooter').textContent = `Date: ${record.completedAt}`;
+      document.getElementById('modalCertId').textContent = `Certificate ID: ${record.certificateId}`;
+      modal.style.display = 'flex';
+    }
+
+    document.getElementById('modalCloseBtn').addEventListener('click', () => {
+      document.getElementById('certificateModal').style.display = 'none';
+    });
+
+    document.getElementById('certificateModal').addEventListener('click', (e) => {
+      if (e.target.id === 'certificateModal') {
+        document.getElementById('certificateModal').style.display = 'none';
+      }
+    });
+
+    document.getElementById('viewLeaderboardBtn').addEventListener('click', () => {
+      const leaderboardSection = document.getElementById('leaderboardSection');
+      // Ensure we render the data before showing
+      renderLeaderboard();
+      leaderboardSection.style.display = 'block';
+      leaderboardSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('retryBtn').addEventListener('click', () => {
+      document.getElementById('resultsScreen').style.display = 'none';
+      document.getElementById('certificateSection').style.display = 'none';
+      document.getElementById('leaderboardSection').style.display = 'none';
+      level1Completed = false;
+      level1PassedScore = 0;
+      level1Score = 0;
+      level2Score = 0;
+      currentLevel = 1;
+      showLevelSelection();
+    });
+
+    async function init() {
+      initBackground();
+      renderLeaderboard();
+    }
+
+    init();
+  </script>
+ </body>
+
+</html>
